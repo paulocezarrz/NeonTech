@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Banco de Dados NeonTech</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <main class="main-container">
+        <div class="content-wrapper">
+            <div id="conteudo-app" class="app-content">
+                <div class="layout-grid">
+                    <div class="sidebar-col">
+
+                        <div class="form-card">
+                            <div class="form-header">
+                                <h2 id="form-titulo" class="form-title">Novo Produto</h2>
+                                <button id="btn-cancelar" class="btn-cancel hidden">Cancelar Edição</button>
+                            </div>
+                            <form id="form-produto" class="form-body">
+                                <input type="hidden" id="produto-id" value="">
+
+                                <div class="form-group">
+                                    <label class="form-label" for="produto-nome">Nome do Produto
+                                        <span class="required">*</span></label>
+                                    <input type="text" id="produto-nome" class="form-control"
+                                        required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label" for="preco">Preço (R$)
+                                        <span class="required">*</span></label>
+                                    <input type="number" id="preco" class="form-control" required min="0" step="0.01">
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label" for="produto-categoria">Categoria</label>
+                                    <select id="produto-categoria" class="form-control">
+                                        <option value="Eletrônico">Eletrônicos</option>
+                                        <option value="Vestuario">Vestuários</option>
+                                        <option value="Alimentos">Alimentos</option>
+                                        <option value="Casa">Casa</option>
+                                        <option value="Beleza">Beleza</option>
+                                        <option value="Outro">Outros</option>
+                                    </select>
+                                </div>
+
+                                <button type="submit" id="btn-salvar" class="btn-submit"><i
+                                        class="fas fa-save"></i><span id="btn-salvar-text">Salvar
+                                        Produto</span></button>
+                            </form>
+
+                        </div> <!--FORM-CARD-->
+                    </div> <!--/SIDEBAR -->
+
+                    <div class="main-col">
+                        <div class="table-card">
+                            <div class="form-header">
+                                <h2 class="form-title">Produtos cadastrados</h2>
+                                <button onclick="criartabelaProdutos()" class="btn-refresh">
+                                    <i class="fas fa-sync-alt"></i>Atualizar
+                                </button>
+                            </div><!--/FORM-HEADER-->
+
+                            <div class="table-responsive">
+                                <table class="data-table">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Nome / Categoria</th>
+                                            <th>Preço</th>
+                                            <th class="text-center">Ações</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tabela-corpo">
+                                        <tr>
+                                            <td colspan="4" class="empty-state">
+                                                <i class="fas fa-spinner fa-spin"></i>
+                                                <br> Carregando produtos...
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div><!--/TABLE-->
+                        </div><!--/TABLE-CARD-->
+                    </div><!--/MAIN-->
+
+                </div>
+            </div>
+        </div>
+        </div>
+    </main>
+
+    <div id="toast-container"></div>
+    <script type="module" src="./script.js"></script>
+</body>
+
+</html>
