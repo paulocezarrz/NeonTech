@@ -7,6 +7,7 @@ import {
 } from './script_db.js';
 
 // Elementos principias do HTML
+const filtroCategoria = document.getElementById("filtro-categoria");
 const formProdutos = document.getElementById('form-produto');
 const tabelaProdutos = document.getElementById('tabela-corpo');
 const btnCancelar = document.getElementById('btn-cancelar');
@@ -53,48 +54,85 @@ function mostrarToast(mensagem, tipo = 'success') {
 // Ler dado sdo Banco de Dados Neon
 
 async function criartabelaProdutos() {
+
     const dados = await consultarDiretoComFetch();
 
-    tabelaProdutos.innerHTML = '';
+    tabelaProdutos.innerHTML = "";
 
-    if (!dados || dados.length === 0) {
+    let produtos = dados;
+
+    if (filtroCategoria.value !== "") {
+        produtos = dados.filter(produto =>
+            produto.categoria === filtroCategoria.value
+        );
+    }
+
+    if (!produtos || produtos.length === 0) {
+
         tabelaProdutos.innerHTML = `
         <tr>
-        <td colspan="4" class="empty-state">Nenhum produto encontrado.</td>
+            <td colspan="5" class="empty-state">
+                Nenhum produto encontrado.
+            </td>
         </tr>`;
+
         return;
     }
 
-    dados.forEach(produto => {
-        const linha = document.createElement('tr');
+    produtos.forEach(produto => {
+
+        const linha = document.createElement("tr");
+
+        const data = new Date(produto.criado_em);
+
+        const criadoEm = data.toLocaleString("pt-BR");
 
         linha.innerHTML = `
         <td class="cell-id">#${produto.id}</td>
+
         <td>
-        <p class="cell-name">${produto.nome}</p>
-        <p class="cell-preco">${produto.categoria}</p>
+            <p class="cell-name">${produto.nome}</p>
+            <p class="cell-preco">${produto.categoria}</p>
         </td>
+
         <td>
-        <span class="badge badge-active">
-            ${new Intl.NumberFormat('pt-BR', {
-                style: 'currency',
-                currency: 'BRL'
-            }).format(produto.preco)}
-        </span>
+            <span class="badge badge-active">
+                ${new Intl.NumberFormat("pt-BR", {
+                    style: "currency",
+                    currency: "BRL"
+                }).format(produto.preco)}
+            </span>
         </td>
+
+        <td>${criadoEm}</td>
+
         <td>
-        <div class="action-container">
-        <button onclick="prepararEdicao(${produto.id}, '${produto.nome}', '${produto.preco}', '${produto.categoria}')" class="btn-action btn-edit" title="Editar">
-        <i class="fas fa-pen"></i>
-        </button>
-        <button onclick=deletarproduto(${produto.id}) class="btn-action btn-delete" title="Excluir">
-        <i class="fas fa-trash"></i>
-        </button>
-        </div>
+            <div class="action-container">
+
+                <button
+                    onclick="prepararEdicao(${produto.id}, '${produto.nome}', '${produto.preco}', '${produto.categoria}')"
+                    class="btn-action btn-edit">
+
+                    <i class="fas fa-pen"></i>
+
+                </button>
+
+                <button
+                    onclick="deletarproduto(${produto.id})"
+                    class="btn-action btn-delete">
+
+                    <i class="fas fa-trash"></i>
+
+                </button>
+
+            </div>
         </td>
         `;
+
         tabelaProdutos.appendChild(linha);
+
     });
+
 }
 window.criartabelaProdutos = criartabelaProdutos;
 
@@ -108,7 +146,7 @@ window.prepararEdicao = function (id, nome, preco, categoria) {
 
     formTitulo.textContent = "Editar Produto";
     btnSalvarText.textContent = "Atualizar Produto";
-    btnCancelar.classList.remove('hidden');
+    btnCancelar.classList.remove('hidden');        
 }
 
 async function lidarComEnvioFormulario(event) {
@@ -162,6 +200,7 @@ formProdutos.addEventListener('submit', lidarComEnvioFormulario);
 
 btnCancelar.addEventListener('click', limparFormulario);
 
+filtroCategoria.addEventListener("change", criartabelaProdutos);
 criartabelaProdutos();
 
 

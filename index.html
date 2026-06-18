@@ -65,7 +65,19 @@
                                     <i class="fas fa-sync-alt"></i>Atualizar
                                 </button>
                             </div><!--/FORM-HEADER-->
+                            <div style="margin-bottom:15px; padding: 20px; padding-right: 50%;">
+                            <label for="filtro-categoria"><strong>Filtrar categoria:</strong></label>
 
+                            <select id="filtro-categoria" class="form-control">
+                                <option value="">Todas</option>
+                                <option value="Eletrônico">Eletrônicos</option>
+                                <option value="Vestuario">Vestuários</option>
+                                <option value="Alimentos">Alimentos</option>
+                                <option value="Casa">Casa</option>
+                                <option value="Beleza">Beleza</option>
+                                <option value="Outro">Outros</option>
+                            </select>
+                        </div>
                             <div class="table-responsive">
                                 <table class="data-table">
                                     <thead>
@@ -73,12 +85,13 @@
                                             <th>ID</th>
                                             <th>Nome / Categoria</th>
                                             <th>Preço</th>
+                                            <th>Criado em</th>
                                             <th class="text-center">Ações</th>
                                         </tr>
                                     </thead>
                                     <tbody id="tabela-corpo">
                                         <tr>
-                                            <td colspan="4" class="empty-state">
+                                            <td colspan="5" class="empty-state">
                                                 <i class="fas fa-spinner fa-spin"></i>
                                                 <br> Carregando produtos...
                                             </td>
