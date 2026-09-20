@@ -1,4 +1,5 @@
-const DATABASE_URL = "postgresql://neondb_owner:npg_CnyQEf5mPDx6@ep-icy-dew-acdnj5tz-pooler.sa-east-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require";
+const DATABASE_URL = "postgresql://neondb_owner:npg_CnyQEf5mPDx6@ep-icy-dew-acdnj5tz-pooler.sa-east-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require"; 
+// Sim, a conexão está exposta no momento.
 
 // Print no javascript//
 console.log("Minha string de conexão é: ", DATABASE_URL);
